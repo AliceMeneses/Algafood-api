@@ -20,6 +20,10 @@ public class CozinhaDao {
 		return entityManager.createQuery("select c from Cozinha c", Cozinha.class).getResultList();
 	}
 	
+	public Cozinha buscar(Long id) {
+		return entityManager.find(Cozinha.class, id);
+	}
+	
 	@Transactional
 	public Cozinha adicionar(Cozinha cozinha) {
 		return entityManager.merge(cozinha);
