@@ -8,7 +8,7 @@ import com.algaworks.algafood.AlgafoodApiApplication;
 import com.algaworks.algafood.dao.CozinhaDao;
 import com.algaworks.algafood.domain.model.Cozinha;
 
-public class BuscaCozinhaPorIdMain {
+public class BuscarCozinhaPorIdMain {
 
 	public static void main(String[] args) {
 		ApplicationContext applicationContext = new SpringApplicationBuilder(AlgafoodApiApplication.class)

@@ -25,8 +25,14 @@ public class CozinhaDao {
 	}
 	
 	@Transactional
-	public Cozinha adicionar(Cozinha cozinha) {
+	public Cozinha salvar(Cozinha cozinha) {
 		return entityManager.merge(cozinha);
+	}
+	
+	@Transactional
+	public void excluir(Cozinha cozinha) {
+		cozinha = buscar(cozinha.getId());
+		entityManager.remove(cozinha);
 	}
 	
 }

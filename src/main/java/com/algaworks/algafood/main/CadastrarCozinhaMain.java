@@ -8,7 +8,7 @@ import com.algaworks.algafood.AlgafoodApiApplication;
 import com.algaworks.algafood.dao.CozinhaDao;
 import com.algaworks.algafood.domain.model.Cozinha;
 
-public class InclusaoCozinhaMain {
+public class CadastrarCozinhaMain {
 
 	public static void main(String[] args) {
 		ApplicationContext applicationContext = new SpringApplicationBuilder(AlgafoodApiApplication.class)
@@ -23,8 +23,8 @@ public class InclusaoCozinhaMain {
 		Cozinha cozinhaJaponesa = new Cozinha();
 		cozinhaJaponesa.setNome("Japonesa");
 		
-		cozinhaBrasileira = cozinhaDao.adicionar(cozinhaBrasileira);
-		cozinhaJaponesa = cozinhaDao.adicionar(cozinhaJaponesa);
+		cozinhaBrasileira = cozinhaDao.salvar(cozinhaBrasileira);
+		cozinhaJaponesa = cozinhaDao.salvar(cozinhaJaponesa);
 		
 		System.out.printf("%d - %s\n", cozinhaBrasileira.getId(), cozinhaBrasileira.getNome());
 		System.out.printf("%d - %s\n", cozinhaJaponesa.getId(), cozinhaJaponesa.getNome());

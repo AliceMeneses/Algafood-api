@@ -8,20 +8,18 @@ import com.algaworks.algafood.AlgafoodApiApplication;
 import com.algaworks.algafood.dao.CozinhaDao;
 import com.algaworks.algafood.domain.model.Cozinha;
 
-public class AtualizarCozinhaMain {
+public class ExcluirCozinhaMain {
 
 	public static void main(String[] args) {
 		ApplicationContext applicationContext = new SpringApplicationBuilder(AlgafoodApiApplication.class)
-				.web(WebApplicationType.NONE).run(args);
-
+				.web(WebApplicationType.NONE)
+				.run(args);
+		
 		CozinhaDao cozinhaDao = applicationContext.getBean(CozinhaDao.class);
 
 		Cozinha cozinha = new Cozinha();
 		cozinha.setId(1L);
-		cozinha.setNome("Coreana");
 		
-		cozinha = cozinhaDao.salvar(cozinha);
-
-		System.out.println(cozinha.getNome());
+		cozinhaDao.excluir(cozinha);
 	}
 }
