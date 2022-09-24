@@ -5,8 +5,8 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContext;
 
 import com.algaworks.algafood.AlgafoodApiApplication;
-import com.algaworks.algafood.dao.CozinhaDao;
 import com.algaworks.algafood.domain.model.Cozinha;
+import com.algaworks.algafood.domain.repository.CozinhaRepository;
 
 public class CadastrarCozinhaMain {
 
@@ -15,7 +15,7 @@ public class CadastrarCozinhaMain {
 				.web(WebApplicationType.NONE)
 				.run(args);
 		
-		CozinhaDao cozinhaDao = applicationContext.getBean(CozinhaDao.class);
+		CozinhaRepository cozinhaRepository = applicationContext.getBean(CozinhaRepository.class);
 		
 		Cozinha cozinhaBrasileira = new Cozinha();
 		cozinhaBrasileira.setNome("Brasileira");
@@ -23,8 +23,8 @@ public class CadastrarCozinhaMain {
 		Cozinha cozinhaJaponesa = new Cozinha();
 		cozinhaJaponesa.setNome("Japonesa");
 		
-		cozinhaBrasileira = cozinhaDao.salvar(cozinhaBrasileira);
-		cozinhaJaponesa = cozinhaDao.salvar(cozinhaJaponesa);
+		cozinhaBrasileira = cozinhaRepository.salvar(cozinhaBrasileira);
+		cozinhaJaponesa = cozinhaRepository.salvar(cozinhaJaponesa);
 		
 		System.out.printf("%d - %s\n", cozinhaBrasileira.getId(), cozinhaBrasileira.getNome());
 		System.out.printf("%d - %s\n", cozinhaJaponesa.getId(), cozinhaJaponesa.getNome());
