@@ -5,6 +5,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -18,6 +20,7 @@ public class Cozinha {
 	@EqualsAndHashCode.Include
 	private Long id;
 
+	@JsonProperty("titulo")
 	private String nome;
 
 }
