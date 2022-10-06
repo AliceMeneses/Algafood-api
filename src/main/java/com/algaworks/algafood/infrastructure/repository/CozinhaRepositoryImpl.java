@@ -28,6 +28,12 @@ public class CozinhaRepositoryImpl implements CozinhaRepository {
 		return entityManager.find(Cozinha.class, id);
 	}
 	
+	@Override
+	public List<Cozinha> buscarPorNome(String nome) {
+		return entityManager.createQuery("select c from Cozinha c where nome like :nome", Cozinha.class)
+			.setParameter("nome", "%"+ nome + "%").getResultList();
+	}
+	
 	@Transactional
 	@Override
 	public Cozinha salvar(Cozinha cozinha) {
@@ -45,5 +51,5 @@ public class CozinhaRepositoryImpl implements CozinhaRepository {
 		
 		entityManager.remove(cozinha);
 	}
-	
+
 }
