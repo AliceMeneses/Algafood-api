@@ -20,6 +20,6 @@ public class TesteController {
 	
 	@GetMapping("/cozinhas")
 	public List<Cozinha> buscarPorNome(@RequestParam String nome) {
-		return repository.findByNome(nome);
+		return repository.findByNomeContaining(nome);
 	}
 }
