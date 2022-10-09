@@ -2,6 +2,7 @@ package com.algaworks.algafood.api.controller;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,6 +39,11 @@ public class TesteController {
 	@GetMapping("/restaurantes/por-nome-e-cozinha-id")
 	public List<Restaurante> buscarPorNomeECozinhaId(@RequestParam String nome, @RequestParam Long cozinhaId) {
 		return restauranteRepository.findByNomeContainingAndCozinhaId(nome, cozinhaId);
+	}
+	
+	@GetMapping("/restaurantes/primeiro-por-nome")
+	public Optional<Restaurante> buscarPrimeiroPorNome(@RequestParam String nome) {
+		return restauranteRepository.getFirstByNomeContaining(nome);
 	}
 	
 }
