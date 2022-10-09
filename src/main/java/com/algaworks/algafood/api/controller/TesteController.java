@@ -1,5 +1,6 @@
 package com.algaworks.algafood.api.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,17 +10,29 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.algaworks.algafood.domain.model.Cozinha;
+import com.algaworks.algafood.domain.model.Restaurante;
 import com.algaworks.algafood.domain.repository.CozinhaRepository;
+import com.algaworks.algafood.domain.repository.RestauranteRepository;
 
 @RestController
 @RequestMapping("/teste")
 public class TesteController {
 
 	@Autowired
-	private CozinhaRepository repository; 
-	
+	private CozinhaRepository cozinhaRepository;
+
+	@Autowired
+	private RestauranteRepository restauranteRepository;
+
 	@GetMapping("/cozinhas")
 	public List<Cozinha> buscarPorNome(@RequestParam String nome) {
-		return repository.findByNomeContaining(nome);
+		return cozinhaRepository.findByNomeContaining(nome);
 	}
+
+	@GetMapping("/restaurantes")
+	public List<Restaurante> buscarPorTaxaFreteEntre(@RequestParam BigDecimal taxaFreteInicial,
+			@RequestParam BigDecimal taxaFreteFinal) {
+		return restauranteRepository.findByTaxaFreteBetween(taxaFreteInicial, taxaFreteFinal);
+	}
+	
 }
