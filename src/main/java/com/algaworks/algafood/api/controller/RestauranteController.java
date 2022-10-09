@@ -3,6 +3,7 @@ package com.algaworks.algafood.api.controller;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,15 +37,15 @@ public class RestauranteController {
 
 	@GetMapping
 	public List<Restaurante> listar() {
-		return repository.listar();
+		return repository.findAll();
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Restaurante> buscar(@PathVariable Long id) {
-		Restaurante restaurante = repository.buscar(id);
+		Optional<Restaurante> optionalRestaurante = repository.findById(id);
 
-		if (restaurante != null) {
-			return ResponseEntity.ok(restaurante);
+		if (optionalRestaurante.isPresent()) {
+			return ResponseEntity.ok(optionalRestaurante.get());
 		}
 
 		return ResponseEntity.notFound().build();
@@ -66,9 +67,10 @@ public class RestauranteController {
 	@PutMapping("/{id}")
 	public ResponseEntity<?> atualizar(@PathVariable Long id, @RequestBody Restaurante restaurante) {
 		try {
-			Restaurante restauranteAtual = repository.buscar(id);
+			Optional<Restaurante> optionalRestauranteAtual = repository.findById(id);
 
-			if (restauranteAtual != null) {
+			if (optionalRestauranteAtual.isPresent()) {
+				Restaurante restauranteAtual = optionalRestauranteAtual.get();
 				BeanUtils.copyProperties(restaurante, restauranteAtual, "id");
 
 				restauranteAtual = cadastroRestaurante.salvar(restauranteAtual);
@@ -84,12 +86,13 @@ public class RestauranteController {
 
 	@PatchMapping("/{id}")
 	public ResponseEntity<?> atualizarParcial(@PathVariable Long id, @RequestBody Map<String, Object> campos) {
-		Restaurante restauranteAtual = repository.buscar(id);
+		Optional<Restaurante> optionalRestauranteAtual = repository.findById(id);
 
-		if (restauranteAtual == null) {
+		if (optionalRestauranteAtual.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		}
-
+		
+		Restaurante restauranteAtual = optionalRestauranteAtual.get();
 		merge(campos, restauranteAtual);
 
 		return atualizar(id, restauranteAtual);
