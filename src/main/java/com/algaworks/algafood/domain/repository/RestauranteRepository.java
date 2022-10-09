@@ -13,4 +13,6 @@ public interface RestauranteRepository extends JpaRepository<Restaurante, Long>{
 
 	List<Restaurante> findByTaxaFreteBetween(BigDecimal taxaFreteInicial, BigDecimal taxaFreteFinal);
 
+	List<Restaurante> findByNomeContainingAndCozinhaId(String nome, Long id);
+	
 }
