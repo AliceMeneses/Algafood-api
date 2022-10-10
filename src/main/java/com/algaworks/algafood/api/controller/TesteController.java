@@ -29,6 +29,11 @@ public class TesteController {
 	public List<Cozinha> buscarPorNome(@RequestParam String nome) {
 		return cozinhaRepository.findByNomeContaining(nome);
 	}
+	
+	@GetMapping("/cozinhas/existe-por-nome")
+	public Boolean cozinhaExistePorNome(@RequestParam String nome) {
+		return cozinhaRepository.existsByNome(nome);
+	}
 
 	@GetMapping("/restaurantes")
 	public List<Restaurante> buscarPorTaxaFreteEntre(@RequestParam BigDecimal taxaFreteInicial,
@@ -56,5 +61,6 @@ public class TesteController {
 	public Long buscarQuantidadeRestaurantesPorCozinha(@RequestParam Long id) {
 		return restauranteRepository.countByCozinhaId(id);
 	}
+	
 	
 }
