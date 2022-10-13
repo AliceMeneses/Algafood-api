@@ -63,8 +63,8 @@ public class TesteController {
 	}
 	
 	@GetMapping("/restaurantes/por-nome-e-frete")
-	public List<Restaurante> buscarPorNomeETaxaFreteEntre(@RequestParam String nome,
-			@RequestParam BigDecimal taxaFreteInicial, @RequestParam BigDecimal taxaFreteFinal) {
+	public List<Restaurante> buscarPorNomeETaxaFreteEntre(@RequestParam(required = false) String nome,
+			@RequestParam(required = false) BigDecimal taxaFreteInicial, @RequestParam(required = false) BigDecimal taxaFreteFinal) {
 		return restauranteRepository.buscarPorNomeETaxaFreteEntre(nome, taxaFreteInicial, taxaFreteFinal);
 	}
 	
