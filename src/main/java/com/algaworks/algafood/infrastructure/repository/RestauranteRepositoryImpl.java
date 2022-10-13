@@ -1,16 +1,15 @@
 package com.algaworks.algafood.infrastructure.repository;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.util.StringUtils;
 
 import com.algaworks.algafood.domain.model.Restaurante;
 import com.algaworks.algafood.domain.repository.RestauranteRepositoryQueries;
@@ -25,30 +24,11 @@ public class RestauranteRepositoryImpl implements RestauranteRepositoryQueries {
 	public List<Restaurante> buscarPorNomeETaxaFreteEntre(String nome, BigDecimal taxaFreteInicial,
 			BigDecimal taxaFreteFinal) {
 
-		var jpql = new StringBuilder();
-		jpql.append("select r from Restaurante r where 0=0 ");
+		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Restaurante> criteriaQuery = builder.createQuery(Restaurante.class);
+		criteriaQuery.from(Restaurante.class);
 		
-		Map<String, Object> parametros = new HashMap<>();
-		
-		if (StringUtils.hasLength(nome)) {
-			jpql.append("and r.nome like :nome");
-			parametros.put("nome", "%"+nome+"%");
-		}
-		
-		if (taxaFreteInicial != null) {
-			jpql.append(" and r.taxaFrete >= :taxaFreteInicial");
-			parametros.put("taxaFreteInicial", taxaFreteInicial);
-		}
-		
-		if (taxaFreteFinal != null) {
-			jpql.append(" and r.taxaFrete <= :taxaFreteFinal");
-			parametros.put("taxaFreteFinal", taxaFreteFinal);
-		}
-
-		TypedQuery<Restaurante> query = entityManager.createQuery(jpql.toString(), Restaurante.class);
-
-		parametros.forEach((chave, valor) -> query.setParameter(chave, valor));
-		
+		TypedQuery<Restaurante> query = entityManager.createQuery(criteriaQuery);
 		return query.getResultList();
 	}
 
