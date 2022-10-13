@@ -8,6 +8,8 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
 
@@ -26,7 +28,13 @@ public class RestauranteRepositoryImpl implements RestauranteRepositoryQueries {
 
 		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
 		CriteriaQuery<Restaurante> criteriaQuery = builder.createQuery(Restaurante.class);
-		criteriaQuery.from(Restaurante.class);
+		Root<Restaurante> root = criteriaQuery.from(Restaurante.class);
+		
+		Predicate nomePredicate = builder.like(root.get("nome"), "%" + nome + "%");
+		Predicate taxaFreteInicialPredicate = builder.greaterThanOrEqualTo(root.get("taxaFrete"), taxaFreteInicial);
+		Predicate taxaFreteFinalPredicate = builder.lessThanOrEqualTo(root.get("taxaFrete"), taxaFreteFinal);
+
+		criteriaQuery.where(nomePredicate, taxaFreteInicialPredicate, taxaFreteFinalPredicate);
 		
 		TypedQuery<Restaurante> query = entityManager.createQuery(criteriaQuery);
 		return query.getResultList();
