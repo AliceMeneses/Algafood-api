@@ -1,5 +1,6 @@
 package com.algaworks.algafood.domain.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -29,6 +30,6 @@ public class Cozinha {
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "cozinha")
-	private List<Restaurante> restaurantes;
+	private List<Restaurante> restaurantes = new ArrayList<>();
 	
 }
