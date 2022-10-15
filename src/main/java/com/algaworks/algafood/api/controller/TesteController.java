@@ -74,4 +74,9 @@ public class TesteController {
 		return restauranteRepository.buscarPorNomeEComFreteGratis(nome);
 	}
 	
+	@GetMapping("/restaurantes/primeiro")
+	public Restaurante buscarPrimeiro() {
+		return restauranteRepository.buscarPrimeiro().get();
+	}
+	
 }
