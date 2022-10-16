@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -55,6 +56,10 @@ public class Restaurante {
 	@Embedded
 	@JsonIgnore
 	private Endereco endereco;
+	
+	@OneToMany(mappedBy = "restaurante")
+	@JsonIgnore
+	private List<Produto> produtos = new ArrayList<>();
 	
 	@JsonIgnore
 	@ManyToMany
