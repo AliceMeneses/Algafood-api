@@ -22,7 +22,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -51,8 +50,9 @@ public class Restaurante {
 	@Column(nullable = false, columnDefinition = "datetime")
 	private LocalDateTime dataAtualizacao;
 	
+//	@JsonIgnoreProperties("hibernateLazyInitializer")
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JsonIgnoreProperties("hibernateLazyInitializer")
 	@JoinColumn(nullable = false)
 	private Cozinha cozinha;
 	
