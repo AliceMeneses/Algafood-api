@@ -53,7 +53,7 @@ public class Restaurante {
 //	@JsonIgnoreProperties("hibernateLazyInitializer")
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(nullable = false)
+	@JoinColumn
 	private Cozinha cozinha;
 	
 	@Embedded
@@ -65,7 +65,7 @@ public class Restaurante {
 	private List<Produto> produtos = new ArrayList<>();
 	
 	@JsonIgnore
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany
 	@JoinTable(name = "restaurante_forma_pagamento", 
 		joinColumns = @JoinColumn(name = "restaurante_id"), 
 		inverseJoinColumns = @JoinColumn(name = "forma_pagamento_id"))
