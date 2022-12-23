@@ -25,6 +25,10 @@ import com.fasterxml.jackson.databind.exc.PropertyBindingException;
 
 @ControllerAdvice
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
+	
+	private static final String MSG_ERRO_GENERICA_USUARIO_FINAL = "Ocorreu um erro interno inesperado no sistema. "
+            + "Tente novamente e se o problema persistir, entre em contato "
+            + "com o administrador do sistema.";
 
 	@ExceptionHandler(EntidadeNaoEncontradaException.class)
 	public ResponseEntity<Object> handleEntidadeNaoEncontradaException(EntidadeNaoEncontradaException e, WebRequest request) {
@@ -57,7 +61,9 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 		ProblemType problemType = ProblemType.ENTIDADE_EM_USO;
 		String detail = e.getMessage();
 		
-		Problem problem = createProblemBuilder(status, problemType, detail).build();
+		Problem problem = createProblemBuilder(status, problemType, detail)
+				.userMessage(detail)
+				.build();
 		
 		return handleExceptionInternal(e, problem, new HttpHeaders(), status, request);
 	}
@@ -105,7 +111,9 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 				+ "Corrija e informe um valor compatível com o tipo %s", path, ex.getValue(),ex.getTargetType().getSimpleName());
 		ProblemType problemType = ProblemType.MENSAGEM_INCOMPREENSIVEL;
 		
-		Problem problem = createProblemBuilder(status, problemType, detail).build();
+		Problem problem = createProblemBuilder(status, problemType, detail)
+				.userMessage(MSG_ERRO_GENERICA_USUARIO_FINAL)
+				.build();
 		
 		return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
 	}
@@ -154,9 +162,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 	public ResponseEntity<Object> handleUncaught(Exception ex, WebRequest request) {
 	    HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;		
 	    ProblemType problemType = ProblemType.ERRO_DE_SISTEMA;
-	    String detail = "Ocorreu um erro interno inesperado no sistema. "
-	            + "Tente novamente e se o problema persistir, entre em contato "
-	            + "com o administrador do sistema.";
+	    String detail = MSG_ERRO_GENERICA_USUARIO_FINAL;
 
 	    ex.printStackTrace();
 	    
