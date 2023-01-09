@@ -28,6 +28,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import com.algaworks.algafood.core.validation.Groups;
 import com.algaworks.algafood.core.validation.Multiplo;
+import com.algaworks.algafood.core.validation.ValorZeroIncluiDescricao;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
@@ -36,6 +37,8 @@ import lombok.EqualsAndHashCode;
 @Entity
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@ValorZeroIncluiDescricao(valorField = "taxaFrete", 
+	descricaoField = "nome", descricaoObrigatoria = "Frete Grátis")
 public class Restaurante {
 
 	@Id
@@ -47,7 +50,6 @@ public class Restaurante {
 	@Column(nullable = false)
 	private String nome;
 	
-	@Multiplo(numero = 5)
 	@NotNull
 	@PositiveOrZero
 	@Column(nullable = false)
