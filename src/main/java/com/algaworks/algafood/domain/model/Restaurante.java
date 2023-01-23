@@ -66,7 +66,7 @@ public class Restaurante {
 	@ConvertGroup(from = Default.class, to = Groups.CozinhaId.class)
 	@NotNull
 	@ManyToOne
-	@JoinColumn
+	@JoinColumn(name = "cozinha_id", nullable = false)
 	private Cozinha cozinha;
 	
 	@Embedded
