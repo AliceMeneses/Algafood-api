@@ -9,7 +9,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.algaworks.algafood.domain.exception.CozinhaNaoEncontradaException;
+import com.algaworks.algafood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.algafood.domain.model.Cozinha;
+import com.algaworks.algafood.domain.repository.CozinhaRepository;
 import com.algaworks.algafood.domain.service.CadastroCozinhaService;
 
 @SpringBootTest
@@ -17,6 +20,9 @@ class CadastroCozinhaIntegrationTests {
 
 	@Autowired
 	private CadastroCozinhaService cadastroCozinha;
+	
+	@Autowired
+	private CozinhaRepository repository;
 	
 	@Test
 	void deveAtribuirId_QuandoCadastrarCozinhaComDadosCorretos() {
@@ -41,4 +47,13 @@ class CadastroCozinhaIntegrationTests {
 		assertThrows(ConstraintViolationException.class, () -> cadastroCozinha.salvar(novaCozinha));
 	}
 
+	@Test
+	void deveFalhar_QuandoExcluirCozinhaEmUso() {
+		assertThrows(EntidadeEmUsoException.class, () -> cadastroCozinha.remover(1L));
+	}
+	
+	@Test
+	void deveFalhar_QuandoExcluirCozinhaInexistente() {
+		assertThrows(CozinhaNaoEncontradaException.class, () -> cadastroCozinha.remover(18L));
+	}
 }
