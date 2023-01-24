@@ -31,9 +31,7 @@ public class CadastroCozinhaAT {
 	void deveRetornarStatus200_QuandoConsultarCozinhas() {
 		
 		given()
-			.basePath("/cozinhas")
 			.accept(ContentType.JSON)
-			.port(port)
 		.when()
 			.get()
 		.then()
@@ -44,13 +42,24 @@ public class CadastroCozinhaAT {
 	void deveConter4Cozinhas_QuandoConsultarCozinhas() {
 		
 		given()
-			.basePath("/cozinhas")
 			.accept(ContentType.JSON)
-			.port(port)
 		.when()
 			.get()
 		.then()
 			.body("", hasSize(4))
 			.body("nome", hasItems("Indiana", "Tailandesa"));
 	}
+	
+	@Test
+	void deveRetornarStatus201_QuandoCadastrarCozinha() {
+		given()
+			.accept(ContentType.JSON)
+			.contentType(ContentType.JSON)
+			.body("{ \"nome\" : \"Chinesa\" }")
+		.when()
+			.post()
+		.then()
+			.statusCode(HttpStatus.CREATED.value());
+	}
+	
 }
