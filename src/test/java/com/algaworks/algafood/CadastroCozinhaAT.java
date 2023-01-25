@@ -1,6 +1,7 @@
 package com.algaworks.algafood;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.Matchers.hasSize;
 
@@ -76,6 +77,29 @@ public class CadastroCozinhaAT {
 			.post()
 		.then()
 			.statusCode(HttpStatus.CREATED.value());
+	}
+	
+	@Test
+	void deveRetornarRespostaEStatusCorretos_QuandoConsultarCozinhaExistente() {
+		given()
+			.accept(ContentType.JSON)
+			.pathParam("cozinhaId", 2)
+		.when()
+			.get("/{cozinhaId}")
+		.then()
+			.statusCode(HttpStatus.OK.value())
+			.body("nome", equalTo("Tailandesa"));
+	}
+	
+	@Test
+	void deveRetornarStatus404_QuandoConsultarCozinhaInexistente() {
+		given()
+			.accept(ContentType.JSON)
+			.pathParam("cozinhaId", 20)
+		.when()
+			.get("/{cozinhaId}")
+		.then()
+			.statusCode(HttpStatus.NOT_FOUND.value());
 	}
 	
 	private void prepararDados() {
