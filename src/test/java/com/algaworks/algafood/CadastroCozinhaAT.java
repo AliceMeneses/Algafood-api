@@ -50,7 +50,7 @@ public class CadastroCozinhaAT {
 		prepararDados(); 
 		
 		jsonCozinhaChinesa = ResourceUtils.getContentFromResource(
-				"/json/cozinha-chinesa.json");
+				"/json/correto/cozinha-chinesa.json");
 	}
 
 	@Test
