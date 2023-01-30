@@ -21,9 +21,11 @@ public abstract class RestauranteMixin {
 	private Endereco endereco;
 	
 	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
+	@JsonIgnore
 	private OffsetDateTime dataCadastro;
 	
 	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
+	@JsonIgnore
 	private OffsetDateTime dataAtualizacao;
 	
 	@JsonIgnore
