@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.algaworks.algafood.api.model.RestauranteModel;
 import com.algaworks.algafood.domain.exception.CozinhaNaoEncontradaException;
 import com.algaworks.algafood.domain.exception.NegocioException;
 import com.algaworks.algafood.domain.exception.ValidacaoException;
@@ -54,8 +55,10 @@ public class RestauranteController {
 	}
 
 	@GetMapping("/{id}")
-	public Restaurante buscar(@PathVariable Long id) {
-		return cadastroRestaurante.buscarOuFalhar(id);
+	public RestauranteModel buscar(@PathVariable Long id) {
+		Restaurante restaurante = cadastroRestaurante.buscarOuFalhar(id);
+		RestauranteModel restauranteModel = null; // Conversão restaurante para restauranteModel
+		return restauranteModel;
 	}
 
 	@PostMapping
