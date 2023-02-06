@@ -53,6 +53,7 @@ public class RestauranteController {
 	@Autowired
 	private SmartValidator validator;
 	
+	@Autowired
 	private RestauranteModelAssembler restauranteModelAssembler;
 
 	@GetMapping
