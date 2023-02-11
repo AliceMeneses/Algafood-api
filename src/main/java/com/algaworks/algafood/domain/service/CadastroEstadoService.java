@@ -18,19 +18,19 @@ public class CadastroEstadoService {
 	private static final String MSG_ESTADO_EM_USO = "Estado de código %d não pode ser removido, pois está em uso";
 	
 	@Autowired
-	private EstadoRepository repository;
+	private EstadoRepository estadoRepository;
 
 	@Transactional
 	public Estado salvar(Estado estado) {
 
-		return repository.save(estado);
+		return estadoRepository.save(estado);
 	}
 
 	@Transactional
 	public void remover(Long id) {
 		try {
-			repository.deleteById(id);
-
+			estadoRepository.deleteById(id);
+			estadoRepository.flush();
 		} catch (EmptyResultDataAccessException e) {
 			throw new EstadoNaoEncontradoException(id);
 		} catch (DataIntegrityViolationException e) {
@@ -40,7 +40,7 @@ public class CadastroEstadoService {
 	}
 	
 	public Estado buscarOuFalhar(Long id) {
-		return repository.findById(id).orElseThrow(() -> new EstadoNaoEncontradoException(id));
+		return estadoRepository.findById(id).orElseThrow(() -> new EstadoNaoEncontradoException(id));
 	}
 	
 }

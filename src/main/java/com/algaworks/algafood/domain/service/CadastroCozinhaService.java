@@ -18,17 +18,18 @@ public class CadastroCozinhaService {
 	private static final String MSG_COZINHA_EM_USO = "A cozinha de código %d não pode ser removida, pois está em uso";
 	
 	@Autowired
-	private CozinhaRepository repository;
+	private CozinhaRepository cozinhaRepository;
 
 	@Transactional
 	public Cozinha salvar(Cozinha cozinha) {
-		return repository.save(cozinha);
+		return cozinhaRepository.save(cozinha);
 	}
 
 	@Transactional
 	public void remover(Long id) {
 		try {
-			repository.deleteById(id);
+			cozinhaRepository.deleteById(id);
+			cozinhaRepository.flush();
 		} catch (EmptyResultDataAccessException ex) {
 			throw new CozinhaNaoEncontradaException(id);
 		} catch (DataIntegrityViolationException ex) {
@@ -38,7 +39,7 @@ public class CadastroCozinhaService {
 	}
 	
 	public Cozinha buscarOuFalhar(Long id) {
-		return repository.findById(id).orElseThrow(() -> new CozinhaNaoEncontradaException(id));
+		return cozinhaRepository.findById(id).orElseThrow(() -> new CozinhaNaoEncontradaException(id));
 	}
 	
 }
