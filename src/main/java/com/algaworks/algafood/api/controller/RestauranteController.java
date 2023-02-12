@@ -15,6 +15,7 @@ import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.SmartValidator;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -142,6 +143,18 @@ public class RestauranteController {
 			Throwable rootCause = ExceptionUtils.getRootCause(ex);
 			throw new HttpMessageNotReadableException(rootCause.getMessage(), rootCause, servletServerHttpRequest);
 		}
+	}
+	
+	@PutMapping("/{id}/ativo")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void ativar(@PathVariable Long id) {
+		cadastroRestaurante.ativar(id);
+	}
+	
+	@DeleteMapping("/{id}/ativo")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void inativar(@PathVariable Long id) {
+		cadastroRestaurante.inativar(id);
 	}
 	
 }
