@@ -30,4 +30,7 @@ public interface RestauranteRepository extends CustomJpaRepository<Restaurante, 
 	
 	Long countByCozinhaId(Long id);
 	
+	@Query("select r from Restaurante r join fetch r.endereco.cidade")
+	Optional<Restaurante> consultarPorIdECarregarCidade(Long id);
+	
 }

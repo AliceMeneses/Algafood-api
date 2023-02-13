@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.algaworks.algafood.api.model.input.RestauranteInput;
+import com.algaworks.algafood.domain.model.Cidade;
 import com.algaworks.algafood.domain.model.Restaurante;
 
 @Component
@@ -25,6 +26,12 @@ public class RestauranteAssembler {
     
     public void copyToDomainObject(RestauranteInput restauranteInput, Restaurante restaurante) {
     	manager.detach(restaurante.getCozinha());
+		
+    	if (restaurante.getEndereco() != null) {
+    		Cidade cidade = restaurante.getEndereco().getCidade();
+			manager.detach(cidade);
+		}
+    	
     	modelMapper.map(restauranteInput, restaurante);
     }
 }

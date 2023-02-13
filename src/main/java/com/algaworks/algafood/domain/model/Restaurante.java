@@ -67,7 +67,7 @@ public class Restaurante {
 		inverseJoinColumns = @JoinColumn(name = "forma_pagamento_id"))
 	private List<FormaPagamento> formasPagamento = new ArrayList<>();
 
-	private Boolean ativo;
+	private Boolean ativo = Boolean.TRUE;;
 	
 	public void ativar() {
 		setAtivo(true);
