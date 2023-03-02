@@ -44,6 +44,7 @@ public class FormaPagamentoController {
 	public List<FormaPagamentoModel> listar() {
 		List<FormaPagamento> todasFormasPagamento = formaPagamentoRepository.findAll();
 		
+		
 		return formaPagamentoModelAssembler.toCollectionModel(todasFormasPagamento);
 	}
 	
