@@ -50,8 +50,8 @@ public class CidadeController {
 	}
 
 	@GetMapping("/{id}")
-	public CidadeModel buscar(@PathVariable Long cidadeId) {
-	    Cidade cidade = cadastroCidade.buscarOuFalhar(cidadeId);
+	public CidadeModel buscar(@PathVariable Long id) {
+	    Cidade cidade = cadastroCidade.buscarOuFalhar(id);
 	    
 	    return cidadeModelAssembler.toModel(cidade);
 	}
